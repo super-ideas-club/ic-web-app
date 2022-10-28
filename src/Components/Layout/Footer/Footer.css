@@ -1,0 +1,67 @@
+
+.footer {
+    width: 100%;
+    display: flex;
+    background-color: #005792;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    position: fixed;
+    bottom: 0;
+}
+
+.contacts-footer-column {
+    width: 25%;
+    border-right: #F6F6E9 3px solid;
+}
+
+.contacts-footer-column .contact {
+    padding: 5px 10px 0px 10px;
+    display: flex;
+    align-content: center;
+}
+
+.contacts-footer-column .messengers-contacts {
+    padding-top: 10px;
+    display: flex;
+    align-content: center;
+}
+
+.contacts-footer-column .contact .contact-text {
+    padding-left: 10px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 24px;
+
+    color: #F6F6E9;
+}
+.rules-footer-column {
+    width: 50%;
+    border-right: #F6F6E9 3px solid;
+}
+
+.images-footer-column {
+    width: 25%;
+}
+
+.images-footer-column img {
+    padding-left: 30px;
+    padding-top: 10px;
+}
+
+.footer-header {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 36px;
+    letter-spacing: 0.1em;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    text-align: center;
+
+    color: #F6F6E9;
+}

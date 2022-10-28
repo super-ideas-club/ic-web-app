@@ -8,8 +8,9 @@ const App = () => {
   return (
       <div className="App">
         <Routes>
-          <Route path={"/"} element={<Layout />}>
-            <Route index element={<HomePage />} />
+          <Route path={"/"} element={<Layout headerOnly/>}>
+              <Route index element={<HomePage />} />
+              <Route path={"/timeline"} element={<HomePage />} />
           </Route>
           <Route path={"*"} element={<NotFoundPage />} />
         </Routes>
