@@ -1,0 +1,16 @@
+
+.sign-in-button {
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 36px;
+
+    color: #F6F6E9;
+
+    background-color: #F23B3B;
+    padding: 5px 50px 5px 50px;
+    margin-right: 50px;
+    border-radius: 10px;
+}

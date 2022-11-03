@@ -1,0 +1,33 @@
+.text-field .select-input{
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    width: 95%;
+    height: 30px;
+    font-size: 16px;
+
+    border-radius: 7px;
+    border: 1px #FD5F00 solid;
+    padding-left: 5px;
+
+    color: #666666;
+
+    background-color: #F5F5F5;;
+}
+
+.text-field .select-input option {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+
+    padding: 7px;
+    transition-duration: 0.3s;
+}
+
+.text-field .select-input option::selection {
+    color: #F6F6E9;
+}
+

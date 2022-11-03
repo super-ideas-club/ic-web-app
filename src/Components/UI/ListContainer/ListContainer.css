@@ -1,0 +1,17 @@
+
+.list-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.list-container .list-container-element {
+    background: rgba(0, 87, 146, 0.4);
+    padding: 6px 10px 6px 10px;
+    border-radius: 10px;
+
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    margin: 10px;
+}

@@ -1,0 +1,18 @@
+.blank-button {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #F23B3B;
+
+    padding: 5px 20px 5px 20px;
+    background: none;
+    border: 1px #F23B3B solid;
+    border-radius: 7px;
+    transition-duration: 0.3s;
+}
+
+.blank-button:hover{
+    cursor: pointer;
+    padding: 5px 22px 5px 22px;
+}
