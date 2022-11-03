@@ -1,0 +1,155 @@
+
+
+.profile-page {
+    display: flex;
+    flex-direction: row;
+    min-height: 80vh;
+    width: 100%;
+}
+
+.profile-page .left-side{
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 40px;
+    width: 300px;
+
+    border-right: 1px #FD5F00 solid;
+}
+
+.profile-page .left-side .profile-image{
+    width: 250px;
+    height: 250px;
+
+    align-self: center;
+    border-radius: 125px;
+    border: 3px #FFFFFF solid;
+}
+
+.profile-page .left-side .profile-name{
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+
+    padding: 30px 0 15px 0;
+}
+
+.profile-page .left-side .profile-career{
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+
+    color: #FD5F00;
+
+    padding: 15px 0 15px 0;
+}
+
+.profile-page .profile-interaction {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-page .openable-button{
+    background-color: #FD5F00;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    padding: 5px;
+    align-items: center;
+
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition-duration: 1s;
+    margin: 5px;
+}
+
+.profile-page .openable-button img {
+    width: 30px;
+    height: 30px;
+}
+
+.profile-page .openable-button .openable-button-text {
+    display: none;
+
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+
+    color: #F6F6E9;
+    transition: 0.3s;
+    padding-left: 10px;
+    padding-right: 5px;
+
+    transition-duration: 0.5s;
+}
+
+.profile-page .openable-button:hover .openable-button-text {
+    display: block;
+}
+
+.profile-page .right-side {
+    padding: 40px 30px 40px 30px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.profile-page .profile-about {
+    width: 100%;
+}
+
+.profile-page .profile-about .profile-about-text {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    padding: 30px 30px 30px 0;
+}
+
+.profile-page .profile-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+
+    color: #13334C;
+}
+
+.profile-page .profile-teams .profile-teams-list {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.profile-page .profile-teams .profile-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-decoration: none;
+    color: #666666;
+
+    padding: 20px;
+}
+
+.profile-page .profile-teams .profile-team img {
+    width: 100px;
+    height: 100px;
+
+    border: 2px #13334C solid;
+    border-radius: 50px;
+}
+
+.profile-page .profile-teams .profile-team .profile-team-name {
+    padding-top: 10px;
+
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+}
