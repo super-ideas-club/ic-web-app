@@ -8,6 +8,7 @@ const Layout = (props) => {
     if (props.headerOnly) {
         footer = ""
     }
+
     return (
         <>
             <Header />
