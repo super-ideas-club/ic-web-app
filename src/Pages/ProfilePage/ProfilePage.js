@@ -1,6 +1,9 @@
 import './ProfilePage.css'
 import {ListContainer} from "../../Components/UI/ListContainer/ListContainer";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import {config, headers} from "../../config";
+import {IdeaStatus} from "../../Models/IdeaStatus";
 
 const ProfileOpenableButton = (props) => {
     return (
@@ -50,6 +53,20 @@ const ProfilePage = (props) => {
     ]
 
 
+    const ideasInfo = [
+        {
+            name: "AXAXAXAXAX",
+            description: "Описание чувак блин йоу дэмн дэмн",
+            condition: IdeaStatus.inProcess,
+            ideaUrl: "/asdasd"
+        },
+        {
+            name: "AXAXAXAXAX",
+            description: "Описание чувак блин йоу дэмн дэмн",
+            condition: IdeaStatus.ready,
+            ideaUrl: "/pos"
+        }
+    ]
     return(
         <div className={"profile-page"}>
             <div className={"left-side"}>
@@ -61,7 +78,8 @@ const ProfilePage = (props) => {
                     {profileCareer}
                 </div>
                 <div className={"profile-interaction"}>
-                    <ProfileOpenableButton title={"Написать"} iconUrl={require('./images/email-icon.png')} />
+                    <ProfileOpenableButton title={"Написать"} iconUrl={require('./images/email-icon.png')}
+                    onClick={x}/>
                     <ProfileOpenableButton title={"Пригласить в команду"} iconUrl={require('./images/team-icon.png')} />
                 </div>
                 <ListContainer items={skills} style={{marginTop: "30px", fontsize: 10}}/>
@@ -92,6 +110,36 @@ const ProfilePage = (props) => {
                                 </Link>
                                     ) } )
                         }
+                    </div>
+                    <div className={"profile-ideas"}>
+                        <div className={"profile-title"}>
+                            Мои идеи
+                        </div>
+                        <div className={"profile-ideas-list"}>
+                            { ideasInfo.map((idea) =>{
+
+                                let color = "#81C590"
+                                if (idea.condition === IdeaStatus.inProcess) {
+                                    color = "#AE8CC2"
+                                }
+                                return <Link to={idea.ideaUrl} className={"profile-idea"}>
+                                    <div className={"profile-idea-header"}>
+                                        <div className={"profile-idea-name"}>
+                                            {idea.name}
+                                        </div>
+                                        <div className={"profile-idea-condition"} style={{
+                                            backgroundColor: color
+                                        }}>
+                                            {idea.condition}
+                                        </div>
+                                    </div>
+                                    <div className={"profile-idea-description"}>
+                                        {idea.description}
+                                    </div>
+                                </Link>
+                            })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
