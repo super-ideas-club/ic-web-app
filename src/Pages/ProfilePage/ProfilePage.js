@@ -78,8 +78,7 @@ const ProfilePage = (props) => {
                     {profileCareer}
                 </div>
                 <div className={"profile-interaction"}>
-                    <ProfileOpenableButton title={"Написать"} iconUrl={require('./images/email-icon.png')}
-                    onClick={x}/>
+                    <ProfileOpenableButton title={"Написать"} iconUrl={require('./images/email-icon.png')} />
                     <ProfileOpenableButton title={"Пригласить в команду"} iconUrl={require('./images/team-icon.png')} />
                 </div>
                 <ListContainer items={skills} style={{marginTop: "30px", fontsize: 10}}/>
