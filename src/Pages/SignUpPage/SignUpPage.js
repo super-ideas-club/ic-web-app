@@ -381,7 +381,7 @@ const CreateIdeaSignUpForm = (props) => {
                 <div className={"sign-up-form-row"}>
                     <SuggestedList name={"directions"} width={"70%"} placeholder={"Выберите"} suggestions={directionsOptions}
                                    title={"Какими бы словами вы описали эту идею?"}
-                                   addValue={directions.addValueHandler} suggestedOnly
+                                   addValue={directions.addValueHandler}
                                    removeValue={directions.removeValueHandler} value={directions.value}
                                    setValue={directions.setValue} validation={directions.validation}/>
                 </div>

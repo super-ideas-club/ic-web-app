@@ -7,6 +7,7 @@ import {SignInPage} from "./Pages/SignInPage/SignInPage";
 import {SignUpPage} from "./Pages/SignUpPage/SignUpPage";
 import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
 import {IdeaPage} from "./Pages/IdeaPage/IdeaPage";
+import {CreateIdeaPage} from "./Pages/CreateIdeaPage/CreateIdeaPage";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
                 <Route index element={<HomePage />} />
                 <Route path={"/sign-in"} element={<SignInPage />} />
                 <Route path={"/sign-up"} element={<SignUpPage />} />
+                <Route path={"/create-idea"} element={<CreateIdeaPage />} />
             </Route>
             <Route path={"/"} element={<Layout/>}>
                 <Route path={"/timeline"} element={<HomePage />} />
