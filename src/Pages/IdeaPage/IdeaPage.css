@@ -1,0 +1,155 @@
+
+.idea-page {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+
+    padding: 40px;
+}
+
+.idea-page .idea-page-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-bottom: 40px;
+}
+
+.idea-page .idea-page-header .idea-page-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+
+    color: #454545;
+}
+
+.idea-page .idea-page-header .idea-page-condition {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+
+    color: #F6F6E9;
+}
+
+.idea-page .idea-page-tags {
+    display: flex;
+    flex-flow: row wrap;
+
+    width: 70%;
+}
+
+.idea-page .idea-page-tag {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+
+    padding: 5px;
+    color: #005792;
+
+}
+
+.idea-page .idea-page-description {
+    padding-top: 15px;
+
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+
+    width: 70%;
+}
+
+.idea-page .idea-page-team {
+    margin-top: 20px;
+    border: 1px #FD5F00 solid;
+
+    width: 70%;
+}
+
+.idea-page .idea-page-team-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    padding: 20px;
+}
+
+.idea-page .idea-page-team-image {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    padding-right: 20px;
+}
+
+.idea-page .idea-page-team-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+}
+
+.idea-page .idea-page-team-name {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+
+    padding-top: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.idea-page .idea-page-team-description {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+
+    padding: 20px;
+}
+
+.idea-page .idea-page-team-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    padding-left: 20px;
+}
+
+.idea-page .idea-page-team-members {
+    display: flex;
+    flex-flow: row wrap;
+
+    padding: 20px;
+}
+
+.idea-page .idea-page-team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 10px;
+}
+
+.idea-page .idea-page-team-member img {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50px;
+}
+
+.idea-page .idea-page-team-member-name {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+
+    padding-top: 10px;
+}

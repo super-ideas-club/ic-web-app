@@ -117,17 +117,13 @@ const ProfilePage = (props) => {
                         <div className={"profile-ideas-list"}>
                             { ideasInfo.map((idea) =>{
 
-                                let color = "#81C590"
-                                if (idea.condition === IdeaStatus.inProcess) {
-                                    color = "#AE8CC2"
-                                }
                                 return <Link to={idea.ideaUrl} className={"profile-idea"}>
                                     <div className={"profile-idea-header"}>
                                         <div className={"profile-idea-name"}>
                                             {idea.name}
                                         </div>
                                         <div className={"profile-idea-condition"} style={{
-                                            backgroundColor: color
+                                            backgroundColor: idea.condition.color
                                         }}>
                                             {idea.condition}
                                         </div>
