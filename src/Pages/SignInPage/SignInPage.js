@@ -1,16 +1,25 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import './SignInPage.css'
 import {TextField} from "../../Components/UI/TextField/TextField";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {FilledButton} from "../../Components/UI/FilledButton/FilledButton";
 import {validateEmail} from "../../Utils/Validations";
+import {config, headers} from "../../config";
+import axios from "axios";
+import Cookies from "universal-cookie/es6";
+import {Context} from "../../Utils/Context";
 
 const SignInPage = () => {
 
     const [emailValidation, setEmailValidation] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [passwordValidation, setPasswordValidation] = useState("")
+
+    const [signedIn, setSignedIn] = useState(false)
+
+    const { setLoggedIn } = useContext(Context)
 
     const emailHandler = (e) => {
         setEmail(e.target.value)
@@ -23,6 +32,23 @@ const SignInPage = () => {
 
     const signIn = (e) => {
         setEmailValidation(validateEmail(email))
+
+        axios.post(
+            config.serverUrl + config.signInPath,
+            {
+                email: email,
+                password: password
+            }, {
+                headers : headers
+            }
+        ).then((response) => {
+            setSignedIn(true)
+            setLoggedIn(true)
+            console.log(response.data)
+        }).catch( (error) => {
+            setPasswordValidation("Неверные данные")
+            console.log(error)
+        })
     }
 
     let emailInput = <TextField name={"email"} type={"email"} onChange={emailHandler}
@@ -30,13 +56,14 @@ const SignInPage = () => {
                                 placeholder={"Введите свой e-mail"} title={"E-mail"} width={"80%"} />
 
     let passwordInput = <TextField name={"password"} type={"password"} value={password}
-                                   placeholder={"Введите пароль"} title={"Пароль"}
+                                   placeholder={"Введите пароль"} title={"Пароль"} validation={passwordValidation}
                                    width={"80%"} onChange={passwordHandler}/>
 
 
 
   return (
       <div className={"sign-in-form"}>
+          {signedIn ? <Navigate to={"/profile"} /> : ""}
           <div className={"form-header"}>
               Войти
           </div>

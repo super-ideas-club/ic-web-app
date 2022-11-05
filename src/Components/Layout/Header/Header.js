@@ -4,17 +4,24 @@ import {HaveIdea} from "../../UI/HaveIdea/HaveIdea";
 import './Header.css'
 import {SmallProfilePhoto} from "../../UI/SmallProfilePhoto/SmallProfilePhoto";
 import {SignInButton} from "../../UI/SignInButton/SignInButton";
+import {useContext} from "react";
+import {Context} from "../../../Utils/Context";
+
 
 
 const Header = () => {
+    const { currentPerson, isLoggedIn } = useContext(Context)
+
     let rightContent = <></>;
     let timeLine = "";
-    let isLoggedIn = false;
+
+
     if (isLoggedIn){
         rightContent = (
             <div className={"header-right"}>
                 <HaveIdea />
-                <SmallProfilePhoto imageUrl="https://i.pinimg.com/originals/b5/10/1c/b5101ca3aced1afa053d71572a5bd8ce.jpg" notificationCount={3}/>
+                <SmallProfilePhoto imageUrl={currentPerson.userInfo.avatar_link} notificationCount={3}
+                                   profileName={currentPerson.userInfo.name + " " + currentPerson.userInfo.surname}/>
             </div>)
         timeLine = <div className={"navigation-item"}>
                         <Link to={"timeline"}> Лента </Link>

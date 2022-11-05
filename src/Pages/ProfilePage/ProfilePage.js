@@ -1,9 +1,12 @@
 import './ProfilePage.css'
 import {ListContainer} from "../../Components/UI/ListContainer/ListContainer";
 import {Link} from "react-router-dom";
+import {IdeaStatus} from "../../Models/IdeaStatus";
+import {useContext, useState} from "react";
+import {Context} from "../../Utils/Context";
+import useCookies  from '@js-smart/react-cookie-service';
 import axios from "axios";
 import {config, headers} from "../../config";
-import {IdeaStatus} from "../../Models/IdeaStatus";
 
 const ProfileOpenableButton = (props) => {
     return (
@@ -17,22 +20,25 @@ const ProfileOpenableButton = (props) => {
 }
 
 const ProfilePage = (props) => {
-    const profileImageLink = "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj"
-    const profileName = "Фамилия Имя Отчество"
-    const profileCareer = "Студент"
+
+
     const profileAbout = "Имею опыт работы более 10 лет в производственных компаниях в крупных многопрофильных" +
         " холдингах. Обладаю экспертными знаниями в области бухгалтерского, налогового учета, финансового анализа и" +
         " бюджетирования. Владею методами оценки активов, доходности, рисков. Имею успешный опыт привлечения внешнего" +
         " финансирования, прохождения налоговых и аудиторских проверок. Опыт руководства коллективом от 300 человек."
 
-    const skills = [
-        "Большой",
-        "Целеустремленный",
-        "Spring",
-        "MongoDB",
-        "Python",
-        "Java"
-    ]
+    // const skills = [
+    //     "Большой",
+    //     "Целеустремленный",
+    //     "Spring",
+    //     "MongoDB",
+    //     "Python",
+    //     "Java"
+    // ]
+
+    const [skills, setSkills] = useState([])
+
+    const [getData, setGetData] = useState(false)
 
     const teamsInfo = [
         {
@@ -52,7 +58,21 @@ const ProfilePage = (props) => {
         }
     ]
 
+    const { currentPerson } = useContext(Context)
 
+    if (!getData) {
+        setGetData(true)
+        axios.get(config.getUserSkills + currentPerson.userInfo.user_id,
+            {
+                headers: headers,
+                baseURL: config.serverUrl
+            }).then( (result) => {
+                console.log(result.data)
+                setSkills(result.data.map( (skill) => skill.name))
+        }).catch( (error) => {
+            console.log(error)
+        })
+    }
     const ideasInfo = [
         {
             name: "AXAXAXAXAX",
@@ -67,15 +87,20 @@ const ProfilePage = (props) => {
             ideaUrl: "/pos"
         }
     ]
+
+    const onEdit = (e) => {
+
+    }
+
     return(
         <div className={"profile-page"}>
             <div className={"left-side"}>
-                <img src={profileImageLink} className={"profile-image"}/>
+                <img src={currentPerson.userInfo.avatar_link} className={"profile-image"}/>
                 <div className={"profile-name"}>
-                    {profileName}
+                    {currentPerson.userInfo.name + " " + currentPerson.userInfo.surname}
                 </div>
                 <div className={"profile-career"}>
-                    {profileCareer}
+                    {currentPerson.userInfo.career}
                 </div>
                 <div className={"profile-interaction"}>
                     <ProfileOpenableButton title={"Написать"} iconUrl={require('./images/email-icon.png')} />
@@ -83,7 +108,7 @@ const ProfilePage = (props) => {
                 </div>
                 <ListContainer items={skills} style={{marginTop: "30px", fontsize: 10}}/>
                 <ProfileOpenableButton title={"Редактировать профиль"}  iconUrl={require('./images/edit-icon.png')}
-                                       style={{backgroundColor: "#13334C"}}/>
+                                       style={{backgroundColor: "#13334C"}} onClick={onEdit}/>
             </div>
             <div className={"right-side"}>
                 <div className={"profile-about"}>
@@ -125,7 +150,7 @@ const ProfilePage = (props) => {
                                         <div className={"profile-idea-condition"} style={{
                                             backgroundColor: idea.condition.color
                                         }}>
-                                            {idea.condition}
+                                            {idea.condition.title}
                                         </div>
                                     </div>
                                     <div className={"profile-idea-description"}>

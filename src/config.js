@@ -1,14 +1,18 @@
 
 const config = {
-    serverUrl: 'https://292f-5-18-162-172.eu.ngrok.io/',
-    signInPath: 'api/auth/signin/'
+    // serverUrl: 'https://292f-5-18-162-172.eu.ngrok.io/',
+    serverUrl: 'http://localhost:8000/',
+    signInPath: 'api/auth/signin/',
+    signUpPath: 'api/auth/signup/',
+    userInfo: 'user/info/',
+    getAllSkills: 'api/user-skill/all',
+    getAllThemes: 'api/ideas/themes/all',
+    postNewSkill: 'api/user-skill/create',
+    getUserSkills: 'api/user-skill/by-user/'
 }
 
 const headers = {
-    "content-type": "application/json",
-    // "Access-Control-Allow-Origin": "*",
-    // 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-    // "Access-Control-Allow-Headers": "x-access-token, Origin, X-Requested-With, Content-Type, Accept"
+    "content-type": "application/json"
 };
 
 export { config, headers }

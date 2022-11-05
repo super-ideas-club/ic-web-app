@@ -49,7 +49,7 @@ const SuggestedList = (props) => {
             </div>
             <div className={"suggested-list-container"}>
                 {props.value.map((a) => {
-                    return <ListElement value={a} remove={props.removeValue}/>;
+                    return <ListElement value={a.name} remove={props.removeValue}/>;
                 })}
             </div>
         </div>
