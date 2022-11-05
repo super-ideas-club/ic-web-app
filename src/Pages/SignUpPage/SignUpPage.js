@@ -1,10 +1,10 @@
 import './SignUpPage.css'
 import {TextField} from "../../Components/UI/TextField/TextField";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {DropDownInputField} from "../../Components/UI/DropDownInputField/DropDownInputField";
 import {DateInput} from "../../Components/UI/DateInput/DateInput";
 import {FilledButton} from "../../Components/UI/FilledButton/FilledButton";
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigation} from "react-router-dom";
 import {
     validateEmail,
     validateEmpty,
@@ -15,6 +15,10 @@ import {
 import {BlankButton} from "../../Components/UI/BlankButton/BlankButton";
 import {useInput, useSuggestedListInput} from "../../Utils/UseInput";
 import {SuggestedList} from "../../Components/UI/SuggestedList/SuggestedList";
+import axios from "axios";
+import {config, headers} from "../../config";
+import {Context} from "../../Utils/Context";
+import useCookies from "@js-smart/react-cookie-service";
 
 
 const citizenshipSuggestions = [
@@ -40,15 +44,15 @@ const skillsSuggestions = [
 const genderOptions = [
     {
         name: 'Предпочитаю  не сообщать',
-        value: 'ns'
+        value: 'Prefer not to say'
     },
     {
         name: 'Мужчина',
-        value: 'man'
+        value: 'Male'
     },
     {
         name: 'Женщина',
-        value: 'woman'
+        value: 'Female'
     },
 ]
 
@@ -100,7 +104,9 @@ const birthDateToAge = (date) => {
     return n.setFullYear(1970) < b.setFullYear(1970) ? age - 1 : age;
 }
 
-
+const dateToString = (date) => {
+    return date.getFullYear().toString() + "-" + date.getMonth().toString() + "-" + date.getDay().toString()
+}
 
 const MainSignUpForm = (props) => {
     let email = useInput(props.formData.email)
@@ -270,6 +276,11 @@ const FamiliaritySignUpForm = (props) => {
     let skills = useSuggestedListInput(props.formData.skills)
     let favoriteThemes = useSuggestedListInput(props.formData.favoriteThemes)
 
+    let [skillsOptionsState, setSkillsOptionsState] = useState(skillsSuggestions)
+    let [themesOptionsState, setThemesOptionsState] = useState(themeOptions)
+
+    let [isGetDate, setGetDate] = useState(false)
+
     const onNextButtonClick = (e) => {
         let skillsValidation = validateEmptyList(skills.value);
         let themesValidation = validateEmptyList(favoriteThemes.value);
@@ -292,6 +303,56 @@ const FamiliaritySignUpForm = (props) => {
 
     }
 
+    if (!isGetDate) {
+        setGetDate(true)
+        axios.get(config.getAllSkills, {
+            headers: headers,
+            baseURL: config.serverUrl
+        }).then( (result) => {
+            setSkillsOptionsState(result.data.map((skill) => {
+                return { name: skill.name, id: skill.id}
+            }
+            ))
+        }).catch( (error) => {
+            console.log(error)
+        })
+
+        axios.get(config.getAllThemes, {
+            headers: headers,
+            baseURL: config.serverUrl
+        }).then( (result) => {
+            setThemesOptionsState(result.data.map((theme) => {
+                    return { name: theme.name, pk: theme.pk}
+                }
+            ))
+        }).catch( (error) => {
+            console.log(error)
+        })
+    }
+
+    const onAddSkill = (e) => {
+        let p = skillsOptionsState.find((item, index, array) => item.name == e)
+        if (p) {
+            skills.addValueHandler({
+                name: p.name,
+                id: p.id
+            })
+        } else {
+            axios.post(config.postNewSkill,
+                {
+                    name: e
+                },
+                {
+                    headers: headers,
+                    baseURL: config.serverUrl
+                }).then((result) => {
+                skills.addValueHandler({
+                    name: result.data.name,
+                    id: result.data.id
+                })
+            })
+        }
+    }
     const onPrevButtonClick = (e) => {
         props.onPrev()
     }
@@ -304,20 +365,20 @@ const FamiliaritySignUpForm = (props) => {
             <div className={"sign-up-form-main"}>
                 <div className={"sign-up-form-row"}>
                     <SuggestedList name={"skills"} width={"70%"} title={"Навыки"}
-                                   placeholder={"Выберите или напишите"} suggestions={skillsSuggestions}
-                                   addValue={skills.addValueHandler} removeValue={skills.removeValueHandler}
+                                   placeholder={"Выберите или напишите"} suggestions={skillsOptionsState}
+                                   addValue={onAddSkill} removeValue={skills.removeValueHandler}
                                    value={skills.value} setValue={skills.setValue} validation={skills.validation}/>
                 </div>
                 <div className={"sign-up-form-row"}>
                     <SuggestedList name={"themes"} width={"70%"} title={"Темы, которые вам интересны"}
-                                   placeholder={"Выберите"} suggestions={themeOptions}
-                                   addValue={favoriteThemes.addValueHandler} suggestedOnly
+                                   placeholder={"Выберите"} suggestions={themesOptionsState}
+                                   addValue={favoriteThemes.addValueHandler}
                                    removeValue={favoriteThemes.removeValueHandler}
                                    value={favoriteThemes.value} setValue={favoriteThemes.setValue}
                                    validation={favoriteThemes.validation}/>
                 </div>
                 <div className={"sign-up-form-low"}>
-                    <BlankButton text={"Назад"} name={"prev"} id={"prev-button"} onClick={onPrevButtonClick}/>
+                    <BlankButton text={"Заполнить позже"} name={"later"} id={"later-button"} onClick={onPrevButtonClick}/>
                     <FilledButton text={"Далее"} name={"next"} id={"next-button"} onClick={onNextButtonClick}/>
                 </div>
             </div>
@@ -400,9 +461,19 @@ const CreateIdeaSignUpForm = (props) => {
     )
 }
 
+// const SuccessfulSignUp = (props) => {
+//
+//     return (<>
+//             {props.active ? <div className={"modal"}>
+//                 <div
+//             </div> : ""}
+//         </>
+//     )
+// }
+
 const SignUpPage = () => {
 
-    const [formNumber, setFormNumber] = useState(2)
+    const [formNumber, setFormNumber] = useState(0)
 
     const [mainForm, setMainForm] = useState({
         email: "",
@@ -429,8 +500,17 @@ const SignUpPage = () => {
         directions: []
     })
 
+    const [signedUp, setSignedUp] = useState(false)
+
+    const { setLoggedIn } = useContext(Context)
+
+    const { getAllCookies } = useCookies()
+
     const onNext = () => {
         setFormNumber(formNumber + 1)
+        if (formNumber > 3) {
+            setSignedUp(true)
+        }
     }
 
     const onPrev = () => {
@@ -438,24 +518,50 @@ const SignUpPage = () => {
     }
 
     const onSignUp = () => {
-        onSignUpWithoutIdea()
+
+        axios.post(config.signUpPath,
+            {
+                avatar_link: "/default",
+                email: mainForm.email,
+                password: mainForm.password,
+                gender: mainForm.gender,
+                name: mainForm.name,
+                surname: mainForm.surname,
+                patronymic: mainForm.patronymic,
+                country: mainForm.country,
+                city: mainForm.city,
+                birth_date: dateToString(mainForm.birthDate),
+                career: mainForm.career,
+                itn: mainForm.INN
+            },
+            { headers : headers, baseURL: config.serverUrl})
+            .then( (result) => {
+                // browserHistory.push("/sign-in")
+                onNext()
+                setLoggedIn(true)
+                console.log(getAllCookies())
+                console.log(result)
+            })
+            .catch( (error) => {
+                console.log(error)
+            })
     }
 
-    const onSignUpWithoutIdea = () => {
+    const createIdea = () => {
 
     }
 
 
     const forms = [
-        <MainSignUpForm formData={mainForm} setFormData={setMainForm} onNext={onNext}/>,
-        <FamiliaritySignUpForm formData={familiarityForm} setFormData={setFamiliarityForm} onPrev={onPrev} onNext={onNext}/>,
+        <MainSignUpForm formData={mainForm} setFormData={setMainForm} onNext={onSignUp}/>,
+        <FamiliaritySignUpForm formData={familiarityForm} setFormData={setFamiliarityForm} onPrev={onNext} onNext={onNext}/>,
         <CreateIdeaSignUpForm formData={ideaForm} setFormData={setIdeaForm}
-            onPrev={onPrev} onSignUp={onSignUp} onSkip={onSignUpWithoutIdea()}/>
+            onPrev={onPrev} onSignUp={createIdea} onSkip={onNext}/>
     ]
 
     return (
         <>
-            { forms[formNumber] }
+            {signedUp ? <Navigate to={"/sign-in"} /> : forms[formNumber] }
         </>
     )
 }

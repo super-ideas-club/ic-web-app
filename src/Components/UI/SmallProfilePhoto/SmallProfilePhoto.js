@@ -7,7 +7,7 @@ const SmallProfilePhoto = (props) => {
     let smallNotifications = "";
     let notificationsCount = props.notificationCount
     let imageUrl = props.imageUrl
-    let profileName = "Михаил Казанин";
+    let profileName = props.profileName;
 
 
     if (notificationsCount > 0){
