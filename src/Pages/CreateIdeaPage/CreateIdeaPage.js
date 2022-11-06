@@ -34,7 +34,7 @@ const CreateIdeaPage = () => {
             }).then( (result) => {
                 setDirectionsOptions(result.data.map( (theme) => {
                     return {
-                        id: theme.id,
+                        id: theme.pk,
                         name: theme.name
                     }
                 }))
@@ -68,7 +68,10 @@ const CreateIdeaPage = () => {
     }
 
     const removeTheme = (e) => {
-        let direction = directions.find()
+        let direction = directions.value.find( (item, index, array) => item.name === e)
+        if (direction) {
+            directions.removeValueHandler(direction)
+        }
     }
 
     const createIdea = (e) => {
@@ -142,7 +145,7 @@ const CreateIdeaPage = () => {
                     <SuggestedList name={"directions"} width={"70%"} placeholder={"Выберите"} suggestions={directionsOptions}
                                    title={"Какими бы словами вы описали эту идею?"}
                                    addValue={addTheme}
-                                   removeValue={directions.removeValueHandler} value={directions.value}
+                                   removeValue={removeTheme} value={directions.value}
                                    setValue={directions.setValue} validation={directions.validation}/>
                 </div>
 
