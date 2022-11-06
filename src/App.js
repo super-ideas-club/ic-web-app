@@ -15,6 +15,7 @@ import {useState} from "react";
 import {config, headers} from "./config";
 import useCookies from "@js-smart/react-cookie-service";
 import {ExitPage} from "./Pages/ExitPage/ExitPage";
+import {LoggedInOnly} from "./Components/Layout/LoggedInOnly";
 
 
 const App = () => {
@@ -48,21 +49,25 @@ const App = () => {
       }}>
           <div className="App">
             <Routes>
+                <Route path={"/"} element={<LoggedInOnly />} >
+                    <Route path={"/"} element={<Layout headerOnly/>}>
+                        <Route path={"/create-idea"} element={<CreateIdeaPage />} />
+                    </Route>
+                    <Route path={"/"} element={<Layout/>}>
+                        {/*<Route path={"/timeline"} element={<HomePage />} />*/}
+                        <Route path={"/profile/:id"} element={<ProfilePage />} />
+                        <Route path={"/idea/:id"} element={<IdeaPage />} />
+                    </Route>
+                    <Route path={"/exit"} element={<ExitPage />} />
+                </Route>
                 <Route path={"/"} element={<Layout headerOnly transparentHeader/>}>
                     <Route index element={<HomePage />} />
                 </Route>
                 <Route path={"/"} element={<Layout headerOnly />}>
-                    <Route index element={<HomePage />} />
                     <Route path={"/sign-in"} element={<SignInPage />} />
                     <Route path={"/sign-up"} element={<SignUpPage />} />
-                    <Route path={"/create-idea"} element={<CreateIdeaPage />} />
                 </Route>
-                <Route path={"/"} element={<Layout/>}>
-                    <Route path={"/timeline"} element={<HomePage />} />
-                    <Route path={"/profile/:id"} element={<ProfilePage />} />
-                    <Route path={"/idea/:id"} element={<IdeaPage />} />
-                </Route>
-                <Route path={"/exit"} element={<ExitPage />} />
+
                 <Route path={"*"} element={<NotFoundPage />} />
             </Routes>
           </div>

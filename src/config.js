@@ -13,7 +13,8 @@ const config = {
     getUserIdeas: 'api/ideas/list/',
     getIdea: 'api/ideas/',
     postNewTheme: 'api/ideas/themes/create',
-    postNewIdea: 'api/ideas/create'
+    postNewIdea: 'api/ideas/create',
+    postNewTeam: 'api/team/'
 }
 
 const headers = {

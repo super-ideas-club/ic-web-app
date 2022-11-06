@@ -6,10 +6,11 @@ import {validateEmpty, validateEmptyList} from "../../Utils/Validations";
 import {TextField} from "../../Components/UI/TextField/TextField";
 import {SuggestedList} from "../../Components/UI/SuggestedList/SuggestedList";
 import {FilledButton} from "../../Components/UI/FilledButton/FilledButton";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import axios from "axios";
 import {config, headers} from "../../config";
 import {Navigate} from "react-router-dom";
+import {Context} from "../../Utils/Context";
 
 const CreateIdeaPage = () => {
     const description = useInput("")
@@ -20,6 +21,9 @@ const CreateIdeaPage = () => {
     const [getData, setGetData] = useState(false)
     const [isCreated, setCreated] = useState(false)
 
+
+
+    const { currentPerson } = useContext(Context)
 
     if (!getData) {
 
@@ -101,6 +105,14 @@ const CreateIdeaPage = () => {
                     themes: directions.value.map( (theme) => theme.id)
                 }).then( (result) => {
                 console.log(result.data)
+                axios.post( config.serverUrl + config.postNewTeam,
+                    {
+                        name: name.value + " Команда",
+                        description: "Привет! Мы реализовываем идею " + name.value,
+                        idea: result.data.pk,
+                        persons: [currentPerson.userInfo.user_id],
+                        wanted_skills: []
+                    })
                 setCreated(true)
             }).catch( (error) => {
                 console.log(error)
