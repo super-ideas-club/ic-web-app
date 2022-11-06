@@ -6,7 +6,7 @@ import {Context} from "../../Utils/Context";
 
 const Layout = (props) => {
 
-    let footer = <Footer email={"lol@mail.ru"} phone={"+793672646281"} telegram={"ronalchue"} vk={"ronald"}/>
+    let footer = <Footer email={"example@mail.ru"} phone={"88005553535"} telegram={"ronalchue"} vk={"ronald1_1_1"}/>
     if (props.headerOnly) {
         footer = ""
     }
