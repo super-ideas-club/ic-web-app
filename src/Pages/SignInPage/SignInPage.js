@@ -18,6 +18,7 @@ const SignInPage = () => {
     const [passwordValidation, setPasswordValidation] = useState("")
 
     const [signedIn, setSignedIn] = useState(false)
+    const [userId, setUserId] = useState(0)
 
     const { setLoggedIn } = useContext(Context)
 
@@ -44,6 +45,7 @@ const SignInPage = () => {
         ).then((response) => {
             setSignedIn(true)
             setLoggedIn(true)
+            setUserId(response.data.user_id)
             console.log(response.data)
         }).catch( (error) => {
             setPasswordValidation("Неверные данные")
@@ -63,7 +65,7 @@ const SignInPage = () => {
 
   return (
       <div className={"sign-in-form"}>
-          {signedIn ? <Navigate to={"/profile"} /> : ""}
+          {signedIn ? <Navigate to={"/profile/" + userId} /> : ""}
           <div className={"form-header"}>
               Войти
           </div>

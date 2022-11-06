@@ -20,7 +20,7 @@ const Header = () => {
         rightContent = (
             <div className={"header-right"}>
                 <HaveIdea />
-                <SmallProfilePhoto imageUrl={currentPerson.userInfo.avatar_link} notificationCount={3}
+                <SmallProfilePhoto imageUrl={currentPerson.userInfo.avatar_link} profileId={currentPerson.userInfo.user_id}
                                    profileName={currentPerson.userInfo.name + " " + currentPerson.userInfo.surname}/>
             </div>)
         timeLine = <div className={"navigation-item"}>

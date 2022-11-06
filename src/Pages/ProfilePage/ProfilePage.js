@@ -1,12 +1,13 @@
 import './ProfilePage.css'
 import {ListContainer} from "../../Components/UI/ListContainer/ListContainer";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {IdeaStatus} from "../../Models/IdeaStatus";
 import {useContext, useState} from "react";
 import {Context} from "../../Utils/Context";
 import useCookies  from '@js-smart/react-cookie-service';
 import axios from "axios";
 import {config, headers} from "../../config";
+import {Person} from "../../Models/Person";
 
 const ProfileOpenableButton = (props) => {
     return (
@@ -36,57 +37,112 @@ const ProfilePage = (props) => {
     //     "Java"
     // ]
 
+    const { id } = useParams()
+    const [currentPerson, setCurrentPerson] = useState(Person())
+
     const [skills, setSkills] = useState([])
+    const [teamsInfo, setTeamsInfo] = useState([])
+    const [ideasInfo, setIdeasInfo] = useState([])
 
     const [getData, setGetData] = useState(false)
 
-    const teamsInfo = [
-        {
-            imageUrl: "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj",
-            name: "Команда А",
-            teamUrl: "/teams/po"
-        },
-        {
-            imageUrl: "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj",
-            name: "Крутые бобры",
-            teamUrl: "/teams/po"
-        },
-        {
-            imageUrl: "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj",
-            name: "Команда А",
-            teamUrl: "/teams/po"
-        }
-    ]
 
-    const { currentPerson } = useContext(Context)
+    // const teamsInfo = [
+    //     {
+    //         imageUrl: "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj",
+    //         name: "Команда А",
+    //         teamUrl: "/teams/po"
+    //     },
+    //     {
+    //         imageUrl: "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj",
+    //         name: "Крутые бобры",
+    //         teamUrl: "/teams/po"
+    //     },
+    //     {
+    //         imageUrl: "https://yt3.ggpht.com/ytc/AKedOLS_D2-3MpPoeNxq6AELEAJsSPGS2Mbf0koGLRcn=s900-c-k-c0x00ffffff-no-rj",
+    //         name: "Команда А",
+    //         teamUrl: "/teams/po"
+    //     }
+    // ]
 
+
+    console.log("asas", skills)
     if (!getData) {
-        setGetData(true)
-        axios.get(config.getUserSkills + currentPerson.userInfo.user_id,
+
+        axios.get(config.userInfo + id,
             {
                 headers: headers,
                 baseURL: config.serverUrl
             }).then( (result) => {
-                console.log(result.data)
-                setSkills(result.data.map( (skill) => skill.name))
+            setCurrentPerson({
+                userInfo: result.data
+            })
         }).catch( (error) => {
             console.log(error)
         })
+        axios.get(config.getUserSkills + id,
+            {
+                headers: headers,
+                baseURL: config.serverUrl
+            }).then( (result) => {
+            setSkills( result.data.map( (skill) => skill.name))
+        }).catch( (error) => {
+            console.log(error)
+        })
+
+        axios.get(config.getUserTeams + id,
+            {
+                headers : headers,
+                baseURL: config.serverUrl
+            }).then( (result) => {
+            console.log(result.data)
+            setTeamsInfo(result.data.map( (team) => {
+                return { name: team.name, teamUrl: "/team/" + team.id}
+            }))
+
+            console.log("aaaa", teamsInfo)
+        }).catch( (error) => {
+            console.log(error)
+        })
+
+        axios.get(config.getUserIdeas + id,
+            {
+                headers: headers,
+                baseURL: config.serverUrl
+            }).then( (result) => {
+            console.log(result.data)
+            setIdeasInfo(result.data.map( (idea) => {
+                let ideaCondition = IdeaStatus.created
+                if (idea.state === 1) ideaCondition = IdeaStatus.teamSearching
+                if (idea.state === 2) ideaCondition = IdeaStatus.inProcess
+                if (idea.state === 3) ideaCondition = IdeaStatus.ready
+                return { name: idea.short_name,
+                    ideaUrl: "/idea/" + idea.pk,
+                    description: idea.description,
+                    condition: ideaCondition
+                }
+            }))
+        }).catch( (error) => {
+            console.log(error)
+        })
+
+        setGetData(true)
+
     }
-    const ideasInfo = [
-        {
-            name: "AXAXAXAXAX",
-            description: "Описание чувак блин йоу дэмн дэмн",
-            condition: IdeaStatus.inProcess,
-            ideaUrl: "/asdasd"
-        },
-        {
-            name: "AXAXAXAXAX",
-            description: "Описание чувак блин йоу дэмн дэмн",
-            condition: IdeaStatus.ready,
-            ideaUrl: "/pos"
-        }
-    ]
+    // const ideasInfo = [
+    //     {
+    //         name: "AXAXAXAXAX",
+    //         description: "Описание чувак блин йоу дэмн дэмн",
+    //         condition: IdeaStatus.inProcess,
+    //         ideaUrl: "/asdasd"
+    //     },
+    //     {
+    //         name: "AXAXAXAXAX",
+    //         description: "Описание чувак блин йоу дэмн дэмн",
+    //         condition: IdeaStatus.ready,
+    //         ideaUrl: "/pos"
+    //     }
+    // ]
 
     const onEdit = (e) => {
 
@@ -124,15 +180,15 @@ const ProfilePage = (props) => {
                         Мои команды
                     </div>
                     <div className={"profile-teams-list"}>
-                        { teamsInfo.map((team) => {
+                        { (getData) ? teamsInfo.map((team) => {
                             return (
                                 <Link to={team.teamUrl} className={"profile-team"}>
-                                    <img src={team.imageUrl} />
+                                    <img src={require('./images/team-image.png')} />
                                     <div className={"profile-team-name"}>
                                         {team.name}
                                     </div>
                                 </Link>
-                                    ) } )
+                                    ) } ) : ""
                         }
                     </div>
                     <div className={"profile-ideas"}>

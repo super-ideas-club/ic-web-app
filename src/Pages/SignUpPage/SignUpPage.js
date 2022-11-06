@@ -508,7 +508,7 @@ const SignUpPage = () => {
 
     const onNext = () => {
         setFormNumber(formNumber + 1)
-        if (formNumber > 3) {
+        if (formNumber > 2) {
             setSignedUp(true)
         }
     }
@@ -555,8 +555,8 @@ const SignUpPage = () => {
     const forms = [
         <MainSignUpForm formData={mainForm} setFormData={setMainForm} onNext={onSignUp}/>,
         <FamiliaritySignUpForm formData={familiarityForm} setFormData={setFamiliarityForm} onPrev={onNext} onNext={onNext}/>,
-        <CreateIdeaSignUpForm formData={ideaForm} setFormData={setIdeaForm}
-            onPrev={onPrev} onSignUp={createIdea} onSkip={onNext}/>
+        // <CreateIdeaSignUpForm formData={ideaForm} setFormData={setIdeaForm}
+        //     onPrev={onPrev} onSignUp={createIdea} onSkip={onNext}/>
     ]
 
     return (

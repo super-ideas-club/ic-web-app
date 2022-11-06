@@ -8,7 +8,10 @@ const config = {
     getAllSkills: 'api/user-skill/all',
     getAllThemes: 'api/ideas/themes/all',
     postNewSkill: 'api/user-skill/create',
-    getUserSkills: 'api/user-skill/by-user/'
+    getUserSkills: 'api/user-skill/by-user/',
+    getUserTeams: 'api/team/by-user/',
+    getUserIdeas: 'api/ideas/list/',
+    getIdea: 'api/ideas/'
 }
 
 const headers = {

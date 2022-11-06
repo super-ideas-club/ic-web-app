@@ -56,8 +56,8 @@ const App = () => {
                 </Route>
                 <Route path={"/"} element={<Layout/>}>
                     <Route path={"/timeline"} element={<HomePage />} />
-                    <Route path={"/profile"} element={<ProfilePage />} />
-                    <Route path={"/idea"} element={<IdeaPage />} />
+                    <Route path={"/profile/:id"} element={<ProfilePage />} />
+                    <Route path={"/idea/:id"} element={<IdeaPage />} />
                 </Route>
                 <Route path={"/exit"} element={<ExitPage />} />
                 <Route path={"*"} element={<NotFoundPage />} />
