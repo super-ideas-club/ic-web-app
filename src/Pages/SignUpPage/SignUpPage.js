@@ -124,7 +124,7 @@ const careerOptions = [
         value: "freelancer"
     },
     {
-        name: "Предприниматели",
+        name: "Предприниматель",
         value: "entrepreneurs"
     },
 ]
