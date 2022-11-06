@@ -19,7 +19,7 @@ const Layout = (props) => {
 
     return (
         <>
-            <Header />
+            { (props.transparentHeader) ? <Header transparent /> : <Header /> }
             <div className={"main-content"}>
                 <Outlet />
             </div>

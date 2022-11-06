@@ -24,7 +24,7 @@ const useSuggestedListInput = (initialValue) => {
     const [validation, setValidation] = useState("")
 
     const addValueHandler = (e) => {
-        value.push(e)
+        setValue(value.concat([e]))
     }
 
     const removeValueHandler = (e) => {

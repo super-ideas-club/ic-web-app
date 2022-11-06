@@ -11,11 +11,13 @@ const config = {
     getUserSkills: 'api/user-skill/by-user/',
     getUserTeams: 'api/team/by-user/',
     getUserIdeas: 'api/ideas/list/',
-    getIdea: 'api/ideas/'
+    getIdea: 'api/ideas/',
+    postNewTheme: 'api/ideas/themes/create',
+    postNewIdea: 'api/ideas/create'
 }
 
 const headers = {
-    "content-type": "application/json"
+    // "content-type": "application/json"
 };
 
 export { config, headers }

@@ -508,7 +508,7 @@ const SignUpPage = () => {
 
     const onNext = () => {
         setFormNumber(formNumber + 1)
-        if (formNumber > 2) {
+        if (formNumber > 0) {
             setSignedUp(true)
         }
     }
@@ -521,7 +521,7 @@ const SignUpPage = () => {
 
         axios.post(config.signUpPath,
             {
-                avatar_link: "/default",
+                avatar_link: "https://svaltendorf.de/wp-content/uploads/2018/12/AdobeStock_171253635_Preview.jpg",
                 email: mainForm.email,
                 password: mainForm.password,
                 gender: mainForm.gender,

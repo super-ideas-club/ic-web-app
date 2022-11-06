@@ -48,6 +48,9 @@ const App = () => {
       }}>
           <div className="App">
             <Routes>
+                <Route path={"/"} element={<Layout headerOnly transparentHeader/>}>
+                    <Route index element={<HomePage />} />
+                </Route>
                 <Route path={"/"} element={<Layout headerOnly />}>
                     <Route index element={<HomePage />} />
                     <Route path={"/sign-in"} element={<SignInPage />} />

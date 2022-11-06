@@ -9,11 +9,19 @@ import {Context} from "../../../Utils/Context";
 
 
 
-const Header = () => {
+const Header = (props) => {
     const { currentPerson, isLoggedIn } = useContext(Context)
 
     let rightContent = <></>;
     let timeLine = "";
+
+    let headerStyle = {}
+    let navStyle = {}
+
+    if (props.transparent) {
+        headerStyle = {background: "none", boxShadow: "none"}
+        navStyle = {color: "#13334C"}
+    }
 
 
     if (isLoggedIn){
@@ -24,7 +32,7 @@ const Header = () => {
                                    profileName={currentPerson.userInfo.name + " " + currentPerson.userInfo.surname}/>
             </div>)
         timeLine = <div className={"navigation-item"}>
-                        <Link to={"timeline"}> Лента </Link>
+                        <Link to={"timeline"} style={navStyle}> Лента </Link>
                     </div>
     }else{
         rightContent = (
@@ -34,10 +42,10 @@ const Header = () => {
     }
 
   return (
-      <div className={"header"}>
+      <div className={"header"} style={headerStyle}>
           <div className={"navigation-items"}>
               <div className={"navigation-item"}>
-                  <Link to={"/"}> Главная страница </Link>
+                  <Link to={"/"} style={navStyle}> Главная страница </Link>
               </div>
               {timeLine}
           </div>
