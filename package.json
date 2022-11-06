@@ -1,7 +1,6 @@
 {
   "name": "ic-web-app",
   "version": "0.1.0",
-  "proxy": "https://292f-5-18-162-172.eu.ngrok.io",
   "private": true,
   "dependencies": {
     "@js-smart/react-cookie-service": "^2.1.7",
