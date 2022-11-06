@@ -23,12 +23,40 @@ import useCookies from "@js-smart/react-cookie-service";
 
 const citizenshipSuggestions = [
     {
-        name: 'Россиянин',
+        name: 'Россия',
         value: "ru"
     },
     {
-        name: 'Таджикистанец',
+        name: 'Таджикистан',
         value: "tg"
+    },
+    {
+        name: 'Азербайджан',
+        value: "ab"
+    },
+    {
+        name: 'Армения',
+        value: "ar"
+    },
+    {
+        name: 'Беларусь',
+        value: "bl"
+    },
+    {
+        name: 'Казахстан',
+        value: "kz"
+    },
+    {
+        name: 'Кыргызия',
+        value: "tg"
+    },
+    {
+        name: 'Узбекистан',
+        value: "ub"
+    },
+    {
+        name: 'Украина',
+        value: "uk"
     },
 ];
 
@@ -82,7 +110,23 @@ const careerOptions = [
     {
         name: "Ученый",
         value: "scientist"
-    }
+    },
+    {
+        name: "Инженер",
+        value: "engineer"
+    },
+    {
+        name: "IT-специалист",
+        value: "it"
+    },
+    {
+        name: "Фрилансеры",
+        value: "freelancer"
+    },
+    {
+        name: "Предприниматели",
+        value: "entrepreneurs"
+    },
 ]
 
 const numberValidation = (text) => {
